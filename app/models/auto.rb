@@ -7,7 +7,6 @@ class Auto < ActiveRecord::Base
     validates :longitud, numericality: { allow_blank: true, greater_than_or_equal_to: -180, less_than_or_equal_to: 180 }
 
     before_create do
-        self.marca = "Giovanni"
         if !self.latitud or !self.longitud
             # ¿Porqué estos límites?
             # Véase http://stackoverflow.com/questions/11849636/maximum-lat-and-long-bounds-for-the-world-google-maps-api-latlngbounds
