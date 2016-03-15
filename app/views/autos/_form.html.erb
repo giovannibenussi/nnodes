@@ -1,3 +1,9 @@
+<style>
+#estado_carga_coordenadas{
+    display: none;
+}
+</style>
+
 <%= nested_form_for(@auto) do |f| %>
   <% if @auto.errors.any? %>
     <div id="error_explanation">
@@ -63,8 +69,13 @@
         <!-- <td><%= f.link_to_add 'Add', :piezas %></td> -->
     </tbody>
     <td style="border: none;"><%= f.link_to_add 'Anadir una pieza', :piezas %></td>
-    <button type="button" name="button" id="boton_cargar_ubicacion">Cargar ubicación actual</button>
-    <div id="estado_carga_coordenadas"></div>
+    <button type="button" name="button" id="boton_cargar_ubicacion">Cargar ubicación actual (opcional)</button>
+    <div id="estado_carga_coordenadas">
+        <div id="estado_carga_coordenadas_texto"></div>
+        <div class="progress" id="estado_carga_coordenadas_progress_bar">
+          <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+        </div>
+    </div>
   </table>
 
   <div class="actions">
@@ -75,14 +86,19 @@
 <script type="text/javascript">
     $(function() {
         $('#boton_cargar_ubicacion').on('click', function() {
+            var estado_carga_coordenadas_progress_bar = $('#estado_carga_coordenadas_progress_bar')
+            estado_carga_coordenadas_progress_bar.show()
             var estado_carga_coordenadas = $('#estado_carga_coordenadas')
+            var estado_carga_coordenadas_texto = $('#estado_carga_coordenadas_texto')
+            estado_carga_coordenadas.show()
             var cargarPosicion, showError;
             console.log("Obteniendo coordenadas");
-            estado_carga_coordenadas.text('Cargando coordenadas...')
+            estado_carga_coordenadas_texto.text('Cargando coordenadas...')
             cargarPosicion = function(position) {
               console.log(position)
               console.log("Coordenadas cargadas correctamente")
-              estado_carga_coordenadas.text("Coordenadas cargadas correctamente")
+              estado_carga_coordenadas_texto.text("Coordenadas cargadas correctamente")
+              estado_carga_coordenadas_progress_bar.hide()
               $('#input_latitud').val(position.coords.latitude);
               $('#input_longitud').val(position.coords.longitude);
             };
@@ -90,26 +106,31 @@
               switch (error.code) {
                 case error.PERMISSION_DENIED:
                   console.log('El usuario no permitio el acceso a su ubicación del usuario');
-                  estado_carga_coordenadas.text('El usuario no permitio el acceso a su ubicación del usuario');
+                  estado_carga_coordenadas_texto.text('El usuario no permitio el acceso a su ubicación del usuario');
+                  estado_carga_coordenadas_progress_bar.hide()
                   break;
                 case error.POSITION_UNAVAILABLE:
                   console.log('No ha sido posible cargar la ubicación del usuario');
-                  estado_carga_coordenadas.text('No ha sido posible cargar la ubicación del usuario');
+                  estado_carga_coordenadas_texto.text('No ha sido posible cargar la ubicación del usuario');
+                  estado_carga_coordenadas_progress_bar.hide()
                   break;
                 case error.TIMEOUT:
                   console.log('Ha transcurrido el tiempo límite para cargar la ubicación del usuario');
-                  estado_carga_coordenadas.text('Ha transcurrido el tiempo límite para cargar la ubicación del usuario');
+                  estado_carga_coordenadas_texto.text('Ha transcurrido el tiempo límite para cargar la ubicación del usuario');
+                  estado_carga_coordenadas_progress_bar.hide()
                   break;
                 case error.UNKNOWN_ERROR:
                   console.log('Ha ocurrido un error desconocido al cargar la ubicación del usuario');
-                  estado_carga_coordenadas.text('Ha ocurrido un error desconocido al cargar la ubicación del usuario');
+                  estado_carga_coordenadas_texto.text('Ha ocurrido un error desconocido al cargar la ubicación del usuario');
+                  estado_carga_coordenadas_progress_bar.hide()
               }
             };
             if (navigator.geolocation) {
               navigator.geolocation.getCurrentPosition(cargarPosicion, showError);
             } else {
               console.log("El navegador no soporta geolocalización :(");
-              estado_carga_coordenadas.text("El navegador no soporta geolocalización :(");
+              estado_carga_coordenadas_texto.text("El navegador no soporta geolocalización :(");
+              estado_carga_coordenadas_progress_bar.hide()
             }
         })
     });
