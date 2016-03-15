@@ -1,38 +1,42 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
 
-<p>
-  <strong>Marca:</strong>
-  <%= @auto.marca %>
-</p>
+    <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Modelo:</strong>
-  <%= @auto.modelo %>
-</p>
+    <p>
+      <strong>Marca:</strong>
+      <%= @auto.marca %>
+    </p>
 
-<p>
-  <strong>Latitud:</strong>
-  <%= @auto.latitud %>
-</p>
+    <p>
+      <strong>Modelo:</strong>
+      <%= @auto.modelo %>
+    </p>
 
-<p>
-  <strong>Longitud:</strong>
-  <%= @auto.longitud %>
-</p>
+    <p>
+      <strong>Latitud:</strong>
+      <%= @auto.latitud %>
+    </p>
 
-<p>
-  <strong>Piezas</strong>
-  <%= @auto.piezas.count %>
-</p>
+    <p>
+      <strong>Longitud:</strong>
+      <%= @auto.longitud %>
+    </p>
 
-<!-- <% @auto.piezas.each do | pieza | %> -->
-    <!-- <li><%= pieza.nombre %></li> -->
-<!-- <% end %> -->
+    <p>
+      <strong>Piezas</strong>
+      <%= @auto.piezas.count %>
+    </p>
 
-<%= link_to 'Edit', edit_auto_path(@auto) %> |
-<%= link_to 'Back', autos_path %>
+    <!-- <% @auto.piezas.each do | pieza | %> -->
+        <!-- <li><%= pieza.nombre %></li> -->
+    <!-- <% end %> -->
 
-<div id="map"></div>
+    <%= link_to 'Edit', edit_auto_path(@auto) %> |
+    <%= link_to 'Back', autos_path %>
+
+    <div id="map"></div>
+
+</div>
 
 <script type="text/javascript">
 $(function() {
