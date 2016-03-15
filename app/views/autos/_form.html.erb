@@ -20,14 +20,45 @@
     <%= f.text_field :modelo %>
   </div>
   <div class="field">
-    <%= f.label :latitud %><br>
-    <%= f.text_field :latitud, :id => 'latitud' %>
+    <%= f.hidden_field :latitud, :id => 'input_latitud' %>
   </div>
   <div class="field">
-    <%= f.label :longitud %><br>
-    <%= f.text_field :longitud %>
+    <%= f.hidden_field :longitud, :id => 'input_longitud' %>
   </div>
   <div class="actions">
     <%= f.submit %>
   </div>
 <% end %>
+
+<script type="text/javascript">
+// $(function() {
+//   var cargarPosicion, showError;
+//   console.log("Obteniendo coordenadas");
+//   cargarPosicion = function(position) {
+//     console.log(position.coords);
+//     console.log(position.coords);
+//     $('#input_latitud').val(position.coords.latitude);
+//     $('#input_longitud').val(position.coords.longitude);
+//   };
+//   showError = function(error) {
+//     switch (error.code) {
+//       case error.PERMISSION_DENIED:
+//         console.log('El usuario no permitio el acceso a su ubicación del usuario');
+//         break;
+//       case error.POSITION_UNAVAILABLE:
+//         console.log('No ha sido posible cargar la ubicación del usuario');
+//         break;
+//       case error.TIMEOUT:
+//         console.log('Ha transcurrido el tiempo límite para cargar la ubicación del usuario');
+//         break;
+//       case error.UNKNOWN_ERROR:
+//         console.log('Ha ocurrido un error desconocido al cargar la ubicación del usuario');
+//     }
+//   };
+//   if (navigator.geolocation) {
+//     return navigator.geolocation.getCurrentPosition(cargarPosicion, showError);
+//   } else {
+//     return console.log("El navegador no soporta geolocalización :(");
+//   }
+// });
+</script>
