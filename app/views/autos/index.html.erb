@@ -3,14 +3,14 @@
 
     <h1>Autos</h1>
 
-    <table class="table">
+    <table class="table table-striped">
       <thead>
         <tr>
           <th>Marca</th>
           <th>Modelo</th>
           <th>Latitud</th>
           <th>Longitud</th>
-          <th>piezas</th>
+          <th>Nº de Piezas</th>
           <th colspan="3"></th>
         </tr>
       </thead>
@@ -25,7 +25,7 @@
             <td><%= auto.piezas.count %></td>
             <td><%= link_to 'Ver', auto %></td>
             <td><%= link_to 'Editar', edit_auto_path(auto) %></td>
-            <td><%= link_to 'Eliminar', auto, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <td><%= link_to 'Eliminar', auto, method: :delete, data: { confirm: 'Está seguro que desea eliminar este auto?' } %></td>
           </tr>
         <% end %>
       </tbody>

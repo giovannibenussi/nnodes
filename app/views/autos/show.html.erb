@@ -71,9 +71,9 @@ $(function() {
     window.initMap = function() {
         map = new google.maps.Map(document.getElementById('map'), {
             center: {lat: <%= @auto.latitud %>, lng: <%= @auto.longitud %>},
-            zoom: 8
+            zoom: 14
         });
     }
 });
 </script>
-<script src="https://maps.googleapis.com/maps/api/js?callback=initMap" async defer></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAFoUlxKUlqWdwfzx8-rTB-9zDYZ3sEuMg&callback=initMap" async defer></script>

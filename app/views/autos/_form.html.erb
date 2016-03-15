@@ -11,13 +11,13 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="field form-group">
     <%= f.label :marca %><br>
-    <%= f.text_field :marca %>
+    <%= f.text_field :marca, :class => 'form-control' %>
   </div>
   <div class="field">
     <%= f.label :modelo %><br>
-    <%= f.text_field :modelo %>
+    <%= f.text_field :modelo, :class => 'form-control' %>
   </div>
   <div class="field">
     <%= f.hidden_field :latitud, :id => 'input_latitud' %>
@@ -25,45 +25,88 @@
   <div class="field">
     <%= f.hidden_field :longitud, :id => 'input_longitud' %>
   </div>
-  <%= f.fields_for :piezas do |pieza_form| %>
-      <%= pieza_form.text_field :nombre %>
-      <%= pieza_form.link_to_remove "Eliminar pieza" %>
-  <% end %>
-  <p><%= f.link_to_add "Añadir una pieza", :piezas %></p>
+
+  <table class="table">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Cantidad</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- <%= f.fields_for :piezas, :wrapper => false do | piezas_form | %>
+          <tr class="fields">
+            <td>
+              <%= piezas_form.hidden_field :id %>
+              <%= piezas_form.text_field :nombre %>
+            </td>
+            <td>
+              <%= piezas_form.text_field :cantidad %>
+            </td>
+            <td><%= piezas_form.link_to_remove '<button type="button" class="btn btn-danger">Eliminar</button>'.html_safe %></td>
+          </tr>
+        <% end %> -->
+        <%= f.fields_for :piezas, :wrapper => false do |task_form| %>
+          <tr class="fields">
+              <td>
+                  <%= task_form.hidden_field :id %>
+                  <%= task_form.text_field :nombre %>
+              </td>
+              <td>
+                  <%= task_form.hidden_field :id %>
+                  <%= task_form.text_field :cantidad %>
+              </td>
+              <td><%= task_form.link_to_remove '<button type="button" class="btn btn-danger">Eliminar</button>'.html_safe %></td>
+          </tr>
+        <% end %>
+        <!-- <td><%= f.link_to_add 'Add', :piezas %></td> -->
+    </tbody>
+    <td style="border: none;"><%= f.link_to_add 'Anadir una pieza', :piezas %></td>
+  </table>
+
   <div class="actions">
     <%= f.submit %>
   </div>
 <% end %>
 
 <script type="text/javascript">
-// $(function() {
-//   var cargarPosicion, showError;
-//   console.log("Obteniendo coordenadas");
-//   cargarPosicion = function(position) {
-//     console.log(position.coords);
-//     console.log(position.coords);
-//     $('#input_latitud').val(position.coords.latitude);
-//     $('#input_longitud').val(position.coords.longitude);
-//   };
-//   showError = function(error) {
-//     switch (error.code) {
-//       case error.PERMISSION_DENIED:
-//         console.log('El usuario no permitio el acceso a su ubicación del usuario');
-//         break;
-//       case error.POSITION_UNAVAILABLE:
-//         console.log('No ha sido posible cargar la ubicación del usuario');
-//         break;
-//       case error.TIMEOUT:
-//         console.log('Ha transcurrido el tiempo límite para cargar la ubicación del usuario');
-//         break;
-//       case error.UNKNOWN_ERROR:
-//         console.log('Ha ocurrido un error desconocido al cargar la ubicación del usuario');
-//     }
-//   };
-//   if (navigator.geolocation) {
-//     return navigator.geolocation.getCurrentPosition(cargarPosicion, showError);
-//   } else {
-//     return console.log("El navegador no soporta geolocalización :(");
-//   }
-// });
+    $(function() {
+        window.cargarPosicionUsuario = function() {
+            var cargarPosicion, showError;
+            console.log("Obteniendo coordenadas");
+            cargarPosicion = function(position) {
+              console.log(position)
+              console.log("Coordenadas cargadas correctamente")
+              $('#input_latitud').val(position.coords.latitude);
+              $('#input_longitud').val(position.coords.longitude);
+            };
+            showError = function(error) {
+              switch (error.code) {
+                case error.PERMISSION_DENIED:
+                  console.log('El usuario no permitio el acceso a su ubicación del usuario');
+                  break;
+                case error.POSITION_UNAVAILABLE:
+                  console.log('No ha sido posible cargar la ubicación del usuario');
+                  break;
+                case error.TIMEOUT:
+                  console.log('Ha transcurrido el tiempo límite para cargar la ubicación del usuario');
+                  break;
+                case error.UNKNOWN_ERROR:
+                  console.log('Ha ocurrido un error desconocido al cargar la ubicación del usuario');
+              }
+            };
+            if (navigator.geolocation) {
+              return navigator.geolocation.getCurrentPosition(cargarPosicion, showError);
+            } else {
+              return console.log("El navegador no soporta geolocalización :(");
+            }
+        }
+    });
+    // Necesario para insertar nueva pieza dentro de la tabla, revisar:
+    // https://github.com/ryanb/nested_form/wiki/How-To:-Render-nested-fields-inside-a-table
+    window.NestedFormEvents.prototype.insertFields = function(content, assoc, link) {
+        var $tr = $(link).closest('tr');
+        return $(content).insertBefore($tr);
+    }
 </script>
