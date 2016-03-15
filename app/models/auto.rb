@@ -7,10 +7,12 @@ class Auto < ActiveRecord::Base
     before_create do
         self.marca = "Giovanni"
         if !self.latitud or !self.longitud
-            max_latitude = 90
-            min_latitude = 0
-            max_longitude = 90
-            min_longitude = 0
+            # ¿Porqué estos límites?
+            # Véase http://stackoverflow.com/questions/11849636/maximum-lat-and-long-bounds-for-the-world-google-maps-api-latlngbounds
+            max_latitude = 85
+            min_latitude = -85.05115
+            max_longitude = 180
+            min_longitude = -180
             self.latitud  = rand * (max_latitude - min_latitude) + min_latitude
             self.longitud = rand * (max_longitude - min_longitude) + min_longitude
         end
