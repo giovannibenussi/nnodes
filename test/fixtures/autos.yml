@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  marca: MyString
+  modelo: MyString
+  latitud: 9.99
+  longitud: 9.99
+
+two:
+  marca: MyString
+  modelo: MyString
+  latitud: 9.99
+  longitud: 9.99
