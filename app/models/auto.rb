@@ -2,7 +2,9 @@ class Auto < ActiveRecord::Base
     has_many :piezas
     accepts_nested_attributes_for :piezas
     validates :marca, :modelo, presence: true
-    validates :latitud, :longitud, numericality: { allow_blank: true }
+    # validates :latitud, :longitud, numericality: { allow_blank: true }
+    validates :latitud, numericality: { allow_blank: true, greater_than_or_equal_to: -85.05115, less_than_or_equal_to: 85 }
+    validates :longitud, numericality: { allow_blank: true, greater_than_or_equal_to: -180, less_than_or_equal_to: 180 }
 
     before_create do
         self.marca = "Giovanni"

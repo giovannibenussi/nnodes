@@ -63,6 +63,8 @@
         <!-- <td><%= f.link_to_add 'Add', :piezas %></td> -->
     </tbody>
     <td style="border: none;"><%= f.link_to_add 'Anadir una pieza', :piezas %></td>
+    <button type="button" name="button" id="boton_cargar_ubicacion">Cargar ubicación actual</button>
+    <div id="estado_carga_coordenadas"></div>
   </table>
 
   <div class="actions">
@@ -72,12 +74,15 @@
 
 <script type="text/javascript">
     $(function() {
-        window.cargarPosicionUsuario = function() {
+        $('#boton_cargar_ubicacion').on('click', function() {
+            var estado_carga_coordenadas = $('#estado_carga_coordenadas')
             var cargarPosicion, showError;
             console.log("Obteniendo coordenadas");
+            estado_carga_coordenadas.text('Cargando coordenadas...')
             cargarPosicion = function(position) {
               console.log(position)
               console.log("Coordenadas cargadas correctamente")
+              estado_carga_coordenadas.text("Coordenadas cargadas correctamente")
               $('#input_latitud').val(position.coords.latitude);
               $('#input_longitud').val(position.coords.longitude);
             };
@@ -85,23 +90,28 @@
               switch (error.code) {
                 case error.PERMISSION_DENIED:
                   console.log('El usuario no permitio el acceso a su ubicación del usuario');
+                  estado_carga_coordenadas.text('El usuario no permitio el acceso a su ubicación del usuario');
                   break;
                 case error.POSITION_UNAVAILABLE:
                   console.log('No ha sido posible cargar la ubicación del usuario');
+                  estado_carga_coordenadas.text('No ha sido posible cargar la ubicación del usuario');
                   break;
                 case error.TIMEOUT:
                   console.log('Ha transcurrido el tiempo límite para cargar la ubicación del usuario');
+                  estado_carga_coordenadas.text('Ha transcurrido el tiempo límite para cargar la ubicación del usuario');
                   break;
                 case error.UNKNOWN_ERROR:
                   console.log('Ha ocurrido un error desconocido al cargar la ubicación del usuario');
+                  estado_carga_coordenadas.text('Ha ocurrido un error desconocido al cargar la ubicación del usuario');
               }
             };
             if (navigator.geolocation) {
-              return navigator.geolocation.getCurrentPosition(cargarPosicion, showError);
+              navigator.geolocation.getCurrentPosition(cargarPosicion, showError);
             } else {
-              return console.log("El navegador no soporta geolocalización :(");
+              console.log("El navegador no soporta geolocalización :(");
+              estado_carga_coordenadas.text("El navegador no soporta geolocalización :(");
             }
-        }
+        })
     });
     // Necesario para insertar nueva pieza dentro de la tabla, revisar:
     // https://github.com/ryanb/nested_form/wiki/How-To:-Render-nested-fields-inside-a-table
