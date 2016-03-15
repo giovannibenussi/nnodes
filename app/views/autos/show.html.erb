@@ -31,3 +31,45 @@
 
 <%= link_to 'Edit', edit_auto_path(@auto) %> |
 <%= link_to 'Back', autos_path %>
+
+<div id="map"></div>
+
+<script type="text/javascript">
+$(function() {
+//   var cargarPosicion, showError;
+//   console.log("Obteniendo coordenadas");
+//   cargarPosicion = function(position) {
+//     $('#input_latitud').val(position.coords.latitude);
+//     $('#input_longitud').val(position.coords.longitude);
+//   };
+//   showError = function(error) {
+//     switch (error.code) {
+//       case error.PERMISSION_DENIED:
+//         console.log('El usuario no permitio el acceso a su ubicación del usuario');
+//         break;
+//       case error.POSITION_UNAVAILABLE:
+//         console.log('No ha sido posible cargar la ubicación del usuario');
+//         break;
+//       case error.TIMEOUT:
+//         console.log('Ha transcurrido el tiempo límite para cargar la ubicación del usuario');
+//         break;
+//       case error.UNKNOWN_ERROR:
+//         console.log('Ha ocurrido un error desconocido al cargar la ubicación del usuario');
+//     }
+//   };
+//   if (navigator.geolocation) {
+//     return navigator.geolocation.getCurrentPosition(cargarPosicion, showError);
+//   } else {
+//     return console.log("El navegador no soporta geolocalización :(");
+//   }
+
+    var map;
+    window.initMap = function() {
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: {lat: <%= @auto.latitud %>, lng: <%= @auto.longitud %>},
+            zoom: 8
+        });
+    }
+});
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?callback=initMap" async defer></script>
