@@ -1,4 +1,4 @@
-<%= form_for(@auto) do |f| %>
+<%= nested_form_for(@auto) do |f| %>
   <% if @auto.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@auto.errors.count, "error") %> prohibited this auto from being saved:</h2>
@@ -25,6 +25,11 @@
   <div class="field">
     <%= f.hidden_field :longitud, :id => 'input_longitud' %>
   </div>
+  <%= f.fields_for :piezas do |pieza_form| %>
+      <%= pieza_form.text_field :nombre %>
+      <%= pieza_form.link_to_remove "Eliminar pieza" %>
+  <% end %>
+  <p><%= f.link_to_add "Añadir una pieza", :piezas %></p>
   <div class="actions">
     <%= f.submit %>
   </div>

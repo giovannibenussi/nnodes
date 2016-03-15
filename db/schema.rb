@@ -11,13 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160315034134) do
+ActiveRecord::Schema.define(version: 20160315062706) do
 
   create_table "autos", force: :cascade do |t|
     t.string   "marca"
     t.string   "modelo"
     t.decimal  "latitud"
     t.decimal  "longitud"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "piezas", force: :cascade do |t|
+    t.string   "nombre"
+    t.integer  "cantidad"
+    t.integer  "auto_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

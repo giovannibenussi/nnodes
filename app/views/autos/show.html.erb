@@ -20,5 +20,14 @@
   <%= @auto.longitud %>
 </p>
 
+<p>
+  <strong>Piezas</strong>
+  <%= @auto.piezas.count %>
+</p>
+
+<!-- <% @auto.piezas.each do | pieza | %> -->
+    <!-- <li><%= pieza.nombre %></li> -->
+<!-- <% end %> -->
+
 <%= link_to 'Edit', edit_auto_path(@auto) %> |
 <%= link_to 'Back', autos_path %>

@@ -1,4 +1,6 @@
 class Auto < ActiveRecord::Base
+    has_many :piezas
+    accepts_nested_attributes_for :piezas
     validates :marca, :modelo, presence: true
 
     before_create do
