@@ -46,3 +46,4 @@ group :development do
 end
 
 gem "nested_form"
+gem 'rails-i18n'
