@@ -23,26 +23,28 @@
     </p>
 
     <p>
-      <strong>Piezas</strong>
+      <strong>Nº de Piezas</strong>
       <%= @auto.piezas.count %>
     </p>
 
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <td>Nombre</td>
-                <td>Cantidad</td>
-            </tr>
-        </thead>
-        <tbody>
-        <% @auto.piezas.each do | pieza | %>
-            <tr>
-                <td><%= pieza.nombre %></td>
-                <td><%= pieza.cantidad %></td>
-            </tr>
-        <% end %>
-        </tbody>
-    </table>
+    <% if @auto.piezas.count > 0 %>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <td>Nombre</td>
+                    <td>Cantidad</td>
+                </tr>
+            </thead>
+            <tbody>
+            <% @auto.piezas.each do | pieza | %>
+                <tr>
+                    <td><%= pieza.nombre %></td>
+                    <td><%= pieza.cantidad %></td>
+                </tr>
+            <% end %>
+            </tbody>
+        </table>
+    <% end %>
 
     <%= link_to 'Editar', edit_auto_path(@auto) %> |
     <%= link_to 'Volver', autos_path %>
