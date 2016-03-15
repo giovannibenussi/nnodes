@@ -3,6 +3,8 @@ class CreateAutos < ActiveRecord::Migration
     create_table :autos do |t|
       t.string :marca
       t.string :modelo
+      #   Porqué decimal:
+      #   http://stackoverflow.com/questions/8514167/float-vs-decimal-in-activerecord
       t.decimal :latitud
       t.decimal :longitud
 
